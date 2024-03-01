@@ -1,0 +1,76 @@
+/* App.css */
+
+.App {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 16px;
+}
+
+th {
+  background-color: #4caf50;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.pagination__link,
+.pagination__break {
+  margin: 0 10px;
+  padding: 5px 10px; /* Add some padding */
+  cursor: pointer;
+}
+.pagination__item::marker {
+  display: none;
+}
+.pagination__item {
+  list-style-type: none;
+}
+
+.pagination__break {
+  cursor: default;
+}
+
+.pagination__link--disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination__link--active {
+  font-weight: bold;
+}
