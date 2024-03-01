@@ -72,7 +72,9 @@ export default function Home() {
         onChange={handleSearch}
         placeholder="Search..."
       />
+      <p>Click on Date / Time to sort the data</p>
       <table>
+      
         <thead>
           <tr>
             <th>Sno</th>
