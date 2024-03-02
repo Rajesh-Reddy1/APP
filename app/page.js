@@ -34,17 +34,16 @@ export default function Home() {
     setCurrentPage(0);
   }
 
-  function handleSort(field) {
+  function handleSort(e) {
+    const field = e.target.value;
     if (sortField === field) {
-      // If the current sort field is clicked again, reverse the sort direction
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
-      // If a new sort field is clicked, sort in ascending order
+
       setSortField(field);
       setSortDirection('asc');
     }
   }
-  
 
   const filteredCustomers = customers.filter(
     (customer) =>
@@ -58,24 +57,15 @@ const sortedCustomers = [...filteredCustomers].sort((a, b) => {
   if (sortField === 'date') {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
-    if (dateA < dateB) {
-      return sortDirection === 'asc' ? -1 : 1;
-    }
-    if (dateA > dateB) {
-      return sortDirection === 'asc' ? 1 : -1;
-    }
+    return sortDirection === 'asc' ? dateA - dateB : dateB - dateA;
   } else if (sortField === 'time') {
-    const timeA = new Date(`2000-01-01 ${a.time}`);
-    const timeB = new Date(`2000-01-01 ${b.time}`);
-    if (timeA < timeB) {
-      return sortDirection === 'asc' ? -1 : 1;
-    }
-    if (timeA > timeB) {
-      return sortDirection === 'asc' ? 1 : -1;
-    }
+    const timeA = new Date(`1000-01-01 ${a.time}`);
+    const timeB = new Date(`1000-01-01 ${b.time}`);
+    return sortDirection === 'asc' ? timeA - timeB : timeB - timeA;
   }
   return 0;
 });
+
 
   
 
@@ -91,7 +81,13 @@ const sortedCustomers = [...filteredCustomers].sort((a, b) => {
         onChange={handleSearch}
         placeholder="Search..."
       />
-      <p>Click on Date / Time to sort the data</p>
+      <p>Sort by:{" "}
+      <select onChange={handleSort}>  
+          <option value="">Select </option>
+          <option value="date">Date</option>
+          <option value="time">Time</option>
+        </select>
+      </p>
       <table>
       
         <thead>
@@ -101,8 +97,8 @@ const sortedCustomers = [...filteredCustomers].sort((a, b) => {
             <th>Age</th>
             <th>Phone</th>
             <th>Location</th>
-            <th onClick={() => handleSort("date")}>Date</th>
-            <th onClick={() => handleSort("time")}>Time</th>
+            <th >Date</th>
+            <th >Time</th>
           </tr>
         </thead>
         <tbody>
@@ -112,8 +108,6 @@ const sortedCustomers = [...filteredCustomers].sort((a, b) => {
               const date = new Date(customer.created_at);
               const dateString = date.toLocaleDateString();
               const timeString = date.toLocaleTimeString();
-
-              // Add date and time to the customer object
               customer.date = dateString;
               customer.time = timeString;
 

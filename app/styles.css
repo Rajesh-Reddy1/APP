@@ -74,3 +74,24 @@ tr:nth-child(even) {
 .pagination__link--active {
   font-weight: bold;
 }
+
+p {
+  font-family: Arial, sans-serif;
+  color: #333;
+  font-size: 16px;
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  background-color: #fff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
