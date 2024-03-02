@@ -1,8 +1,9 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
+
 
 import "./styles.css";
+import ReactPaginate from "react-paginate";
 
 export default function Home() {
   const [customers, setCustomers] = useState([]);
@@ -43,6 +44,7 @@ export default function Home() {
       setSortDirection('asc');
     }
   }
+  
 
   const filteredCustomers = customers.filter(
     (customer) =>
@@ -50,15 +52,32 @@ export default function Home() {
       customer.location.toLowerCase().includes(search.toLowerCase())
   );
 
-  const sortedCustomers = [...filteredCustomers].sort((a, b) => {
-    if (a[sortField] < b[sortField]) {
+  
+// Inside the sortedCustomers declaration
+const sortedCustomers = [...filteredCustomers].sort((a, b) => {
+  if (sortField === 'date') {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    if (dateA < dateB) {
       return sortDirection === 'asc' ? -1 : 1;
     }
-    if (a[sortField] > b[sortField]) {
+    if (dateA > dateB) {
       return sortDirection === 'asc' ? 1 : -1;
     }
-    return 0;
-  });
+  } else if (sortField === 'time') {
+    const timeA = new Date(`2000-01-01 ${a.time}`);
+    const timeB = new Date(`2000-01-01 ${b.time}`);
+    if (timeA < timeB) {
+      return sortDirection === 'asc' ? -1 : 1;
+    }
+    if (timeA > timeB) {
+      return sortDirection === 'asc' ? 1 : -1;
+    }
+  }
+  return 0;
+});
+
+  
 
   const PER_PAGE = 20;
   const offset = currentPage * PER_PAGE;
@@ -114,33 +133,35 @@ export default function Home() {
       </table>
 
       <ReactPaginate
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
-        pageCount={pageCount}
-        onPageChange={({ selected }) => setCurrentPage(selected)}
-        containerClassName={"pagination"}
-        pageLinkClassName={"pagination__link"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledLinkClassName={"pagination__link--disabled"}
-        activeLinkClassName={"pagination__link--active"}
-        breakLabel={null}
-        breakClassName={"pagination__link"}
-        pageClassName={"pagination__item"}
-        previousClassName={"pagination__item"}
-        nextClassName={"pagination__item"}
-        disabledClassName={"pagination__item--disabled"}
-        activeClassName={"pagination__item--active"}
-        renderPageLink={(pageLinkProps) => (
-          <a
-            {...pageLinkProps}
-            aria-label={`Go to page ${pageLinkProps.page + 1}`}
-          />
-        )}
-        renderBreakLink={(breakLinkProps) => (
-          <a {...breakLinkProps} aria-label={breakLinkProps.page} />
-        )}
-      />
+      previousLabel={"← Previous"}
+      nextLabel={"Next →"}
+      pageCount={pageCount}
+      onPageChange={({ selected }) => setCurrentPage(selected)}
+      containerClassName={"pagination"}
+      pageLinkClassName={"pagination__link"}
+      previousLinkClassName={"pagination__link"}
+      nextLinkClassName={"pagination__link"}
+      disabledLinkClassName={"pagination__link--disabled"}
+      activeLinkClassName={"pagination__link--active"}
+      breakLabel={null}
+      breakClassName={"pagination__link"}
+      pageClassName={"pagination__item"}
+      previousClassName={"pagination__item"}
+      nextClassName={"pagination__item"}
+      disabledClassName={"pagination__item--disabled"}
+      activeClassName={"pagination__item--active"}
+      renderPageLink={(pageLinkProps) => (
+        <a
+          {...pageLinkProps}
+          aria-label={`Go to page ${pageLinkProps.page + 1}`}
+        />
+      )}
+      renderBreakLink={(breakLinkProps) => (
+        <a {...breakLinkProps} aria-label={breakLinkProps.page} />
+      )}
+    />
     </div>
   );
 }
+
+
