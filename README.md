@@ -15,6 +15,12 @@ This is a simple web application built with React that allows users to search an
 ```bash
 git clone https://github.com/Rajesh-Reddy1/Zithara_Task.git
 ```
+2. Run
+```
+   cd Zithara_task
+   npm run dev
+```
+
 
 ## Packages Used
 
